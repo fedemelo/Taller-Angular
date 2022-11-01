@@ -22,11 +22,12 @@ export class ListarSeriesComponent implements OnInit {
   insertSeasonsAvrg(series_: Serie[]): void {
     console.log('Calculando promedio.');
     let sum: number = 0;
-    series_.map(s => {sum += s.seasons});
-    const avrg: number = sum / series_.length;
+    let num: number = 0;
+    series_.map(s => {sum += s.seasons; num++});
+    const avrg: number = sum / num;
     console.log('Desplegando promedio.');
     const table: HTMLElement = document.getElementById('tabla-series')!;
-    const html: string = '<p>&nbsp; Seasons average: '+avrg+'</p>';
+    const html: string = '<p>&nbsp; Seasons average: '+series_.length+'</p>';
     table.insertAdjacentHTML('afterend', html);
   }
 
