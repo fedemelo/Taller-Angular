@@ -10,31 +10,22 @@ import { SerieService } from '../serie.service';
 export class ListarSeriesComponent implements OnInit {
 
   series: Array<Serie> = [];
+  avrg: number = 0;
 
   constructor(private serieService: SerieService) { }
 
   getSeries(): void {
     this.serieService.getSeries().subscribe((series) => {
       this.series = series;
-    });
-  }
 
-  insertSeasonsAvrg(series_: Serie[]): void {
-    console.log('Calculando promedio.');
-    let sum: number = 0;
-    let num: number = 0;
-    series_.map(s => {sum += s.seasons; num++});
-    const avrg: number = sum / num;
-    console.log('Desplegando promedio.');
-    const table: HTMLElement = document.getElementById('tabla-series')!;
-    const html: string = '<p>&nbsp; Seasons average: '+series_.length+'</p>';
-    table.insertAdjacentHTML('afterend', html);
+      let sum: number = 0;
+      series.map(s => {sum += s.seasons});
+      this.avrg = sum/series.length;
+    });
   }
 
   ngOnInit() {
     this.getSeries();
-
-    this.insertSeasonsAvrg(this.series);
   }
 
 }
